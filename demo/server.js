@@ -19,6 +19,7 @@ require('http').createServer(function(req,res) {
   }).catch(function() {
     // API controller.
     res.setHeader('Content-Type','text/plain');
-    res.end('You sent a ' + req.method + ' request to ' + req.protocal + '://<APIHOST>' + req.url + '.');
+    res.end('You sent a ' + req.method + ' request to ' + '//<APIHOST>' + req.url + '.');
+
   });
 }).listen(1234);
