@@ -1,0 +1,17 @@
+{
+  "name": "APIProxy",
+  "version": "1.0.0",
+  "description": "Cross Origin API Proxy",
+  "main": "server.js",
+  "repository": "git@github.com:YanagiEiichi/APIProxy.git",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "admin@web-tinker.com",
+  "license": "MIT",
+  "dependencies": {
+    "es6-promise": "^2.0.1",
+    "mime": "^1.2.11"
+  }
+}

@@ -1,0 +1,10 @@
+﻿<script src="../apiproxy.js"></script>
+<script>
+// Link to cross origin API server.
+var ap = new APIProxy("http://localhost:1234");
+
+// Call a API, and receive its response.
+ap.delete("/xx","test",function(e) {
+  console.log(e);
+});
+</script>

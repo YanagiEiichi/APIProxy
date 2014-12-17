@@ -1,0 +1,40 @@
+﻿<script>
+var ALLOWED = /^http:\/\/127.0.0.1(:\d+)?$/;
+// Add event listener.
+window.onmessage = function(message) {
+  message = message || event;
+  // Reject and throw, if origin unallowed.
+  var origin = message.origin;
+  if(!ALLOWED.test(origin))
+    throw new Error('Unallowed Origin "'+ origin +'"');
+  // Parse arguments.
+  var args = JSON.parse(message.data);
+  // Initialize XHR.
+  var xhr = new XMLHttpRequest;
+  xhr.open(args.method, args.uri,true);
+  // Set request headers.
+  if(args.headers)for(var i in args.headers)
+    xhr.setRequestHeader(i, args.headers[i]);
+  // Add ready state change event listener with DOM level 0.
+  xhr.onreadystatechange = function(e) {
+    // Do nothing while has not 
+    if(xhr.readyState < 4)return;
+    // Get all response headers.
+    var headers = {};
+    var array = xhr.getAllResponseHeaders().split('\n');
+    for(var i = 0; i < array.length; i++) if(array[i])
+      array[i] = array[i].split(': ', 2),
+      headers[array[i][0]] = array[i][1];
+    // Make a data package with JSON, send back to origin.
+    parent.postMessage(JSON.stringify({
+      id: args.id,
+      status: xhr.status,
+      responseText: xhr.responseText,
+      headers: headers
+    }), origin);
+  };
+  // Send request to API server.
+  xhr.send(args.data);
+};
+</script>
+
